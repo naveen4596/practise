@@ -1,8 +1,9 @@
 ---
 - hosts: aws_ec2
-  user: ec2-user
-  become: yes
   connection: ssh
+  become: yes
+  user: ec2-user
+  
 
   vars:
     ansible_ssh_private_key_file: "/etc/ansible/Myproject.pem"
@@ -18,3 +19,9 @@
 
     - name: restarting httpd
       service: name=httpd state=restarted
+
+    - name: getting code from github
+      git:
+        url: "https://github.com/naveen4596/practise.git"
+        dest: "/var/www/"
+        version: "master"
